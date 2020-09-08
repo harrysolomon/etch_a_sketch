@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<style>
+    .container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      background-color: #ffcc66;
+      padding: 10px;
+    }
+    .cell {
+      background-color: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      font-size: 30px;
+      text-align: center;
+    }
+    
+    .cell:hover {
+            background-color: #ffe6b3;
+        }
+
+    .clear_cells {
+        border: 0;
+        min-width: 102px;
+        line-height: 2.5;
+        padding: 0 20px;
+        font-size: 1rem;
+        text-align: center;
+        color: #fff;
+        text-shadow: 1px 1px 1px #000;
+        border-radius: 10px;
+        background-color: #332200;
+        background-image: linear-gradient(to top left,
+                                        rgba(0, 0, 0, .2),
+                                        rgba(0, 0, 0, .2) 30%,
+                                        rgba(0, 0, 0, 0));
+        box-shadow: inset 2px 2px 3px rgba(255, 255, 255, .6),
+                    inset -2px -2px 3px rgba(0, 0, 0, .6);
+
+
+    }
+
+    .clear_cells:active {
+        box-shadow: inset -2px -2px 3px rgba(255, 255, 255, .6),
+                    inset 2px 2px 3px rgba(0, 0, 0, .6);
+    }
+
+    </style>
+<html>
+<head>
+    <button 
+        class="clear_cells" 
+        type="button" 
+        id ="clear_add_button" 
+        onclick="setGrid()">
+        Update Grid
+    </button>      
+
+</head>
+<body>
+
+<script>
+    
+    function setGrid() {
+        // Check to see if we need to remove the divs first in order to start the grid fresh
+        let elementExists = document.getElementById("main")
+        
+        if (elementExists == null) {
+            //do nothing
+        } else {
+            elementExists.remove()
+        }
+       // popup window asking how many cells in the grid
+        let cells = prompt("How many cells in your grid?", "12");
+        if (cells == null || cells == "") {
+            gridLayout = grid(document.body, 0);
+        } else {
+            gridLayout = grid(document.body, cells);
+        }
+    }
+
+    //Function builds the grid creating a container and then a set of cells (other divs)
+    //Within that container
+    function grid (content, max_cells) {
+    let container = content.appendChild(document.createElement("div"));
+    container.id = "main";
+    container.className = "container";
+
+    for (let i = 1;i <= max_cells;++i) {
+        let cell = container.appendChild(document.createElement("div"));
+        cell.className = "cell";
+        cell.id = "cell" + i
+        document.getElementById("cell" + i).innerHTML = i;
+        }
+    }
+
+
+</script>
+</body>
+</html>
